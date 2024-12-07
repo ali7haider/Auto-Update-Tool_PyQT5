@@ -1,90 +1,21 @@
 import sys
 import os
-import re
-import csv
-import shutil
-import binascii
-import zipfile
-import subprocess
-from PyQt5.QtCore import QThread, pyqtSignal, QMetaObject, QVariant, Qt
-import threading
-import concurrent.futures
-import traceback
-import random
-from PyQt5.QtCore import QEventLoop
-from collections import deque
-import mmap
-import requests
-import json
-from datetime import datetime
-from bs4 import BeautifulSoup
+from PyQt5.QtCore import Qt
 from xml.etree import ElementTree as ET
 from PyQt5.QtWidgets import (
     QApplication,
     QMainWindow,
-    QWidget,
-    QLabel,
-    QLineEdit,
     QPushButton,
-    QVBoxLayout,
-    QFileDialog,
     QMessageBox,
-    QTextEdit,
-    QTableWidget,
-    QTableWidgetItem,
-    QTabWidget,
-    QGridLayout,
     QMainWindow,
-    QFrame,
-    QHeaderView,
-    QProgressDialog,
-    QCheckBox,
 )
-from PyQt5.QtCore import (
-    Qt,
-    QMimeData,
-    QRect,
-    QTimer,
-    QSettings,
-    QDateTime,
-    QThread,
-    pyqtSignal,
-)
-from PyQt5.QtGui import QFont, QColor, QPainter, QPainterPath, QPen
-from PyQt5 import QtCore
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QTabWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QTextEdit, QFileDialog, QMessageBox, QGridLayout, QMainWindow, QFrame, QProgressDialog
-from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QClipboard
-from PyQt5.QtWidgets import QHeaderView
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton, QListWidget
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QListWidget, QCheckBox
-from PyQt5.QtCore import Qt, QMimeData, QRect, QTimer, QSettings
-from PyQt5.QtGui import QFont, QColor
-from PyQt5 import QtCore
-from datetime import datetime
-import xml.etree.ElementTree as ET
-import shutil
-import threading
-import subprocess
-import csv
+from PyQt5.QtWidgets import QApplication, QPushButton, QMessageBox, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow,QPushButton
 import os
 import sys
-import re
-from PyQt5.QtGui import QColor
-import time
-from PyQt5.QtGui import QPalette, QColor
 #from androguard.core.bytecodes.apk import APK
-import asyncio
-import aiohttp
-from bs4 import BeautifulSoup
-from PyQt5.QtCore import Qt, QThread, pyqtSignal, QUrl
-from PyQt5.QtWidgets import QMainWindow, QWidget, QLineEdit, QPushButton, QTextBrowser
-from PyQt5.QtGui import QFont, QDesktopServices
-import json
+from PyQt5.QtWidgets import QMainWindow, QPushButton,QStackedWidget
 import os
-from PyQt5.QtWidgets import QTextBrowser
 from PyQt5 import uic
 from config_system import ConfigSystem
 from menu_compiler import MenuCompiler
