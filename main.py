@@ -87,6 +87,7 @@ import os
 from PyQt5.QtWidgets import QTextBrowser
 from PyQt5 import uic
 from config_system import ConfigSystem
+from  menu_compiler import MenuCompiler
 import resources_rc
 
 GLOBAL_STATE = False
@@ -98,6 +99,8 @@ class MainApp(QMainWindow):
         from modules.ui_functions import UIFunctions
         self.ui=self
         self.setAcceptDrops(True)
+        self.set_buttons_cursor()
+        
 
         self.toggleButton.clicked.connect(lambda: UIFunctions.toggleMenu(self, True))
         UIFunctions.uiDefinitions(self)
@@ -107,6 +110,7 @@ class MainApp(QMainWindow):
         # Access the QStackedWidget
         self.stacked_widget = self.findChild(QStackedWidget, "stackedWidget")  # Match the object name in Qt Designer
         self.config_system=None
+        self.menu_compiler=None
         # Initialize individual pages
         self.init_pages()
 
@@ -116,47 +120,81 @@ class MainApp(QMainWindow):
     ]
 
         # Assign menu button clicks
-        self.menu_button_offset_grabber.clicked.connect(lambda: self.handleMenuClick(self.menu_button_offset_grabber, 0))
-        self.menu_button_menu_compiler.clicked.connect(lambda: self.handleMenuClick(self.menu_button_menu_compiler, 0))
+        self.menu_button_offset_grabber.clicked.connect(self.show_config_system)
+        self.menu_button_menu_compiler.clicked.connect(self.show_menu_compiler)
 
     def init_pages(self):
         """Initialize backend logic for each page."""
         # Initialize ConfigSystem logic
         self.config_system = ConfigSystem(self)  # Assuming it's the first page
+        self.menu_compiler = MenuCompiler(self)
+        self.stackedWidget.setCurrentIndex(0)
 
 
+    def show_config_system(self):
+        self.current_page = self.config_system
+        self.handleMenuClick(self.menu_button_offset_grabber, 0)
+
+    def show_menu_compiler(self):
+        self.current_page = self.menu_compiler
+        self.handleMenuClick(self.menu_button_menu_compiler,2)
     def dragEnterEvent(self, event):
         if event.mimeData().hasUrls():
             event.accept()
         else:
             event.ignore()
-
     def dropEvent(self, event):
-        cs_file_path = None 
-        for url in event.mimeData().urls():
-            filename = url.toLocalFile()
-            if os.path.isfile(filename):
-                if filename.endswith('.csv'):
-                    self.config_system.load_config(filename)
-                elif filename.endswith('.cs'):
-                    cs_file_path = filename 
-                elif filename.endswith('.xml'):
-                    self.offseth_textbox.setText(filename)
-                elif filename.endswith('.cpp'):
-                    self.maincpp_textbox.setText(filename)
-                elif filename.endswith('.apk'):
-                    self.config_system.handle_apk_drop(filename)
-            elif os.path.isdir(filename):
-                for root, dirs, files in os.walk(filename):
-                    for file in files:
-                        if file.endswith('.cs'):
-                            cs_file_path = os.path.join(root, file)
-                            break
-                    if cs_file_path:
-                        break
-                else:
-                    continue
+        """Handle drop event based on the active page."""
+        if not event.mimeData().hasUrls():
+            return event.ignore()
 
+        for url in event.mimeData().urls():
+            file_path = url.toLocalFile()
+
+            if self.current_page == self.config_system:
+                self.handle_config_system_drop(file_path)
+            elif self.current_page == self.menu_compiler:
+                self.handle_menu_compiler_drop(file_path)
+            else:
+                event.ignore()
+
+    def handle_menu_compiler_drop(self, file_path):
+        if file_path.endswith(".apk"):
+            self.log_text_2.append(f"Dropped file: {file_path}")
+            self.menu_compiler.current_file = file_path
+            self.menu_compiler.decompile_apk(file_path)
+        elif file_path.endswith((".xapk", ".apks")):
+            self.log_text_2.append(f"Dropped file: {file_path}")
+            self.menu_compiler.current_file = file_path
+            self.menu_compiler.compile_xapk(file_path)
+        else:
+            QMessageBox.warning(None, "Hata", "Sadece APK, XAPK veya APKS Sürükle.")
+    def handle_config_system_drop(self, file_path):
+        """Handles a single file drop for the ConfigSystem page."""
+        if os.path.isfile(file_path):
+            if file_path.endswith('.csv'):
+                self.config_system.load_config(file_path)
+            elif file_path.endswith('.cs'):
+                self.dump_path_textbox.setText(file_path)
+            elif file_path.endswith('.xml'):
+                self.offseth_textbox.setText(file_path)
+            elif file_path.endswith('.cpp'):
+                self.maincpp_textbox.setText(file_path)
+            elif file_path.endswith('.apk'):
+                self.config_system.handle_apk_drop(file_path)
+        elif os.path.isdir(file_path):
+            self.process_directory(file_path)
+
+    def process_directory(self, directory):
+        """Handles directory processing to locate .cs files."""
+        cs_file_path = None
+        for root, dirs, files in os.walk(directory):
+            for file in files:
+                if file.endswith('.cs'):
+                    cs_file_path = os.path.join(root, file)
+                    break
+            if cs_file_path:
+                break
         if cs_file_path:
             self.dump_path_textbox.setText(cs_file_path)
     def handleMenuClick(self, button, page_index):
@@ -176,7 +214,11 @@ class MainApp(QMainWindow):
         self.stackedWidget.setCurrentIndex(page_index)
 
 
-
+    def set_buttons_cursor(self):
+        """Set the pointer cursor for all buttons in the UI."""
+        buttons = self.findChildren(QPushButton)  # Find all QPushButton objects
+        for button in buttons:
+            button.setCursor(Qt.PointingHandCursor)
 
 
     
