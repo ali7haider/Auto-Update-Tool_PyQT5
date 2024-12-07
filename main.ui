@@ -959,7 +959,7 @@ Button */
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btn_save">
+                 <widget class="QPushButton" name="menu_button_game_update">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1109,7 +1109,7 @@ Button */
                </layout>
                <zorder>menu_button_offset_grabber</zorder>
                <zorder>menu_button_menu_compiler</zorder>
-               <zorder>btn_save</zorder>
+               <zorder>menu_button_game_update</zorder>
                <zorder>btn_exit</zorder>
                <zorder>btn_save_2</zorder>
                <zorder>btn_save_3</zorder>
@@ -1961,7 +1961,7 @@ p, li { white-space: pre-wrap; }
                       <string notr="true">background: transparent;</string>
                      </property>
                      <property name="currentIndex">
-                      <number>0</number>
+                      <number>3</number>
                      </property>
                      <widget class="QWidget" name="home">
                       <property name="acceptDrops">
@@ -2948,7 +2948,7 @@ border:1px solid rgb(221, 221, 221);</string>
                                    <bool>false</bool>
                                   </property>
                                   <attribute name="horizontalHeaderVisible">
-                                   <bool>true</bool>
+                                   <bool>false</bool>
                                   </attribute>
                                   <attribute name="horizontalHeaderCascadingSectionResizes">
                                    <bool>true</bool>
@@ -4322,6 +4322,126 @@ border:1px solid rgb(221, 221, 221);</string>
                                  </widget>
                                 </item>
                                </layout>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                     <widget class="QWidget" name="UpdateCheckPage">
+                      <layout class="QVBoxLayout" name="verticalLayout_30">
+                       <item>
+                        <widget class="QFrame" name="frame_20">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_31">
+                          <item>
+                           <widget class="QFrame" name="frame_21">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_16">
+                             <property name="spacing">
+                              <number>15</number>
+                             </property>
+                             <property name="leftMargin">
+                              <number>30</number>
+                             </property>
+                             <item>
+                              <widget class="QPushButton" name="check_button">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(52, 59, 72);</string>
+                               </property>
+                               <property name="text">
+                                <string>Check Updates</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QTextBrowser" name="result_log">
+                               <property name="styleSheet">
+                                <string notr="true">QTextBrowser { background-color: rgb(33, 37, 43); color: #ffc000; font-size: 14px; border-radius: 5px; border: 2px solid #292929; padding: 5px; } QTextEdit:focus { border: 2px solid #1e90ff; }</string>
+                               </property>
+                               <property name="html">
+                                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:14px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12px;&quot;&gt;Results&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                               </property>
+                               <property name="openExternalLinks">
+                                <bool>true</bool>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QFrame" name="frame_22">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QGridLayout" name="gridLayout_7">
+                             <property name="leftMargin">
+                              <number>50</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>50</number>
+                             </property>
+                             <item row="0" column="0">
+                              <widget class="QLineEdit" name="game_name_input">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                               <property name="placeholderText">
+                                <string>Game Name</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="0" column="1">
+                              <widget class="QLineEdit" name="game_url_input">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                               <property name="placeholderText">
+                                <string>Package Name</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="3" column="0" colspan="2">
+                              <widget class="QPushButton" name="add_game_button">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(52, 59, 72);</string>
+                               </property>
+                               <property name="text">
+                                <string>Add Game</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="2" column="0" colspan="2">
+                              <widget class="QPushButton" name="clear_log_button_3">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(52, 59, 72);</string>
+                               </property>
+                               <property name="text">
+                                <string>Log Clear</string>
+                               </property>
                               </widget>
                              </item>
                             </layout>

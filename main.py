@@ -87,7 +87,8 @@ import os
 from PyQt5.QtWidgets import QTextBrowser
 from PyQt5 import uic
 from config_system import ConfigSystem
-from  menu_compiler import MenuCompiler
+from menu_compiler import MenuCompiler
+from update_check import GameUpdateChecker
 import resources_rc
 
 GLOBAL_STATE = False
@@ -117,17 +118,20 @@ class MainApp(QMainWindow):
         self.menu_buttons = [
         self.menu_button_offset_grabber,  # Replace with your actual button objects
         self.menu_button_menu_compiler,
+        self.menu_button_game_update,
     ]
 
         # Assign menu button clicks
         self.menu_button_offset_grabber.clicked.connect(self.show_config_system)
         self.menu_button_menu_compiler.clicked.connect(self.show_menu_compiler)
+        self.menu_button_game_update.clicked.connect(self.show_game_update_menu)
 
     def init_pages(self):
         """Initialize backend logic for each page."""
         # Initialize ConfigSystem logic
         self.config_system = ConfigSystem(self)  # Assuming it's the first page
         self.menu_compiler = MenuCompiler(self)
+        self.game_update_chceker= GameUpdateChecker(self)
         self.stackedWidget.setCurrentIndex(0)
 
 
@@ -138,6 +142,9 @@ class MainApp(QMainWindow):
     def show_menu_compiler(self):
         self.current_page = self.menu_compiler
         self.handleMenuClick(self.menu_button_menu_compiler,2)
+    def show_game_update_menu(self):
+        self.current_page = self.game_update_chceker
+        self.handleMenuClick(self.menu_button_game_update,3)
     def dragEnterEvent(self, event):
         if event.mimeData().hasUrls():
             event.accept()
