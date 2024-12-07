@@ -30,6 +30,9 @@
      <bold>false</bold>
     </font>
    </property>
+   <property name="acceptDrops">
+    <bool>true</bool>
+   </property>
    <property name="styleSheet">
     <string notr="true">QWidget{
 	color: rgb(221, 221, 221);
@@ -1961,6 +1964,9 @@ p, li { white-space: pre-wrap; }
                       <number>0</number>
                      </property>
                      <widget class="QWidget" name="home">
+                      <property name="acceptDrops">
+                       <bool>true</bool>
+                      </property>
                       <property name="styleSheet">
                        <string notr="true"/>
                       </property>
@@ -2911,6 +2917,9 @@ border:1px solid rgb(221, 221, 221);</string>
                                     </disabled>
                                    </palette>
                                   </property>
+                                  <property name="acceptDrops">
+                                   <bool>true</bool>
+                                  </property>
                                   <property name="frameShape">
                                    <enum>QFrame::NoFrame</enum>
                                   </property>
@@ -3437,7 +3446,7 @@ border:1px solid rgb(221, 221, 221);</string>
                                 <rect>
                                  <x>0</x>
                                  <y>0</y>
-                                 <width>222</width>
+                                 <width>335</width>
                                  <height>222</height>
                                 </rect>
                                </property>
@@ -3956,19 +3965,8 @@ border:1px solid rgb(221, 221, 221);</string>
                        </item>
                       </layout>
                      </widget>
-                     <widget class="QWidget" name="new_page">
-                      <layout class="QVBoxLayout" name="verticalLayout_20">
-                       <item>
-                        <widget class="QLabel" name="label">
-                         <property name="text">
-                          <string>NEW PAGE TEST</string>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignCenter</set>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
+                     <widget class="QWidget" name="MenuCompilerPage">
+                      <layout class="QVBoxLayout" name="verticalLayout_20"/>
                      </widget>
                     </widget>
                    </item>

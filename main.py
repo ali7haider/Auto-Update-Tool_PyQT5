@@ -97,6 +97,7 @@ class MainApp(QMainWindow):
         uic.loadUi("main.ui", self)  # Replace with your main UI file
         from modules.ui_functions import UIFunctions
         self.ui=self
+        self.setAcceptDrops(True)
 
         self.toggleButton.clicked.connect(lambda: UIFunctions.toggleMenu(self, True))
         UIFunctions.uiDefinitions(self)
@@ -105,7 +106,7 @@ class MainApp(QMainWindow):
 
         # Access the QStackedWidget
         self.stacked_widget = self.findChild(QStackedWidget, "stackedWidget")  # Match the object name in Qt Designer
-
+        self.config_system=None
         # Initialize individual pages
         self.init_pages()
 
@@ -121,9 +122,43 @@ class MainApp(QMainWindow):
     def init_pages(self):
         """Initialize backend logic for each page."""
         # Initialize ConfigSystem logic
-        self.offset_grabber_page = ConfigSystem(self)  # Assuming it's the first page
+        self.config_system = ConfigSystem(self)  # Assuming it's the first page
 
 
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.accept()
+        else:
+            event.ignore()
+
+    def dropEvent(self, event):
+        cs_file_path = None 
+        for url in event.mimeData().urls():
+            filename = url.toLocalFile()
+            if os.path.isfile(filename):
+                if filename.endswith('.csv'):
+                    self.config_system.load_config(filename)
+                elif filename.endswith('.cs'):
+                    cs_file_path = filename 
+                elif filename.endswith('.xml'):
+                    self.offseth_textbox.setText(filename)
+                elif filename.endswith('.cpp'):
+                    self.maincpp_textbox.setText(filename)
+                elif filename.endswith('.apk'):
+                    self.config_system.handle_apk_drop(filename)
+            elif os.path.isdir(filename):
+                for root, dirs, files in os.walk(filename):
+                    for file in files:
+                        if file.endswith('.cs'):
+                            cs_file_path = os.path.join(root, file)
+                            break
+                    if cs_file_path:
+                        break
+                else:
+                    continue
+
+        if cs_file_path:
+            self.dump_path_textbox.setText(cs_file_path)
     def handleMenuClick(self, button, page_index):
         """
         Handles menu button clicks to update styles and switch pages.
@@ -267,12 +302,10 @@ class APKProcessorThread(QThread):
             raise Exception(f"APK'den paket adı alınamadı: {e}")            
 
 
-class ConfigSystem:
+class ConfigSystem(QWidget):  # Inherit from QWidget
     def __init__(self, ui_instance):
-        """Initialize with the UI instance of the page."""
+        super().__init__()  # Initialize QWidget
         self.ui = ui_instance
-        self.setAcceptDrops(True)
-
         self.libil2cpp_path = None
         self.metadata_path = None
         self.drop_button.dragEnterEvent = self.button_drag_enter_event
@@ -621,40 +654,7 @@ class ConfigSystem:
                 break
 
         return matching_csv_file
-    def dragEnterEvent(self, event):
-        if event.mimeData().hasUrls():
-            event.accept()
-        else:
-            event.ignore()
-
-    def dropEvent(self, event):
-        cs_file_path = None 
-        for url in event.mimeData().urls():
-            filename = url.toLocalFile()
-            if os.path.isfile(filename):
-                if filename.endswith('.csv'):
-                    self.load_config(filename)
-                elif filename.endswith('.cs'):
-                    cs_file_path = filename 
-                elif filename.endswith('.xml'):
-                    self.offseth_textbox.setText(filename)
-                elif filename.endswith('.cpp'):
-                    self.maincpp_textbox.setText(filename)
-                elif filename.endswith('.apk'):
-                    self.handle_apk_drop(filename)
-            elif os.path.isdir(filename):
-                for root, dirs, files in os.walk(filename):
-                    for file in files:
-                        if file.endswith('.cs'):
-                            cs_file_path = os.path.join(root, file)
-                            break
-                    if cs_file_path:
-                        break
-                else:
-                    continue
-
-        if cs_file_path:
-            self.dump_path_textbox.setText(cs_file_path)
+    
 
 
 
