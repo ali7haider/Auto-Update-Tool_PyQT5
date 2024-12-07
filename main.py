@@ -21,13 +21,15 @@ from config_system import ConfigSystem
 from menu_compiler import MenuCompiler
 from update_check import GameUpdateChecker
 import resources_rc
+from main_ui import Ui_MainWindow
 
 GLOBAL_STATE = False
-class MainApp(QMainWindow):
+class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
-        super().__init__()
-        # Load the main UI
-        uic.loadUi("main.ui", self)  # Replace with your main UI file
+        super(MainWindow, self).__init__()
+
+        # Set up the user interface from the generated class
+        self.setupUi(self)
         from modules.ui_functions import UIFunctions
         self.ui=self
         self.setAcceptDrops(True)
@@ -187,6 +189,6 @@ class MainApp(QMainWindow):
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
-    main_window = MainApp()
+    main_window = MainWindow()
     main_window.show()
     sys.exit(app.exec_())

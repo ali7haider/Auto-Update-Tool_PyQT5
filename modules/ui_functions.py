@@ -5,11 +5,11 @@ from PyQt5.QtCore import QPropertyAnimation, QEasingCurve, QParallelAnimationGro
 from PyQt5.QtWidgets import QPushButton, QSizeGrip
 from PyQt5.QtCore import QEvent
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
-from main import MainApp  # Import the MainApp class from main.py
+from main import MainWindow  # Import the MainApp class from main.py
 
 GLOBAL_STATE = False
 GLOBAL_TITLE_BAR = True
-class UIFunctions(MainApp):
+class UIFunctions(MainWindow):
     
     def maximize_restore(self):
         global GLOBAL_STATE
