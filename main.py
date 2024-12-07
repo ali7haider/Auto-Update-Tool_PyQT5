@@ -20,7 +20,6 @@ from PyQt5 import uic
 from config_system import ConfigSystem
 from menu_compiler import MenuCompiler
 from update_check import GameUpdateChecker
-import resources_rc
 from main_ui import Ui_MainWindow
 
 GLOBAL_STATE = False
