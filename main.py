@@ -50,12 +50,19 @@ class MainApp(QMainWindow):
         self.menu_button_offset_grabber,  # Replace with your actual button objects
         self.menu_button_menu_compiler,
         self.menu_button_game_update,
+        self.menu_button_multi_tool,
+        self.menu_button_offset_grabber,
+        self.menu_button_pairip_pass,
+        self.menu_button_offset_leech
     ]
 
         # Assign menu button clicks
         self.menu_button_offset_grabber.clicked.connect(self.show_config_system)
         self.menu_button_menu_compiler.clicked.connect(self.show_menu_compiler)
         self.menu_button_game_update.clicked.connect(self.show_game_update_menu)
+        self.menu_button_multi_tool.clicked.connect(self.show_multi_tool_menu)
+        self.menu_button_pairip_pass.clicked.connect(self.show_pairip_pass_menu)
+        self.menu_button_offset_leech.clicked.connect(self.show_offset_leech_menu)
 
     def init_pages(self):
         """Initialize backend logic for each page."""
@@ -76,6 +83,20 @@ class MainApp(QMainWindow):
     def show_game_update_menu(self):
         self.current_page = self.game_update_chceker
         self.handleMenuClick(self.menu_button_game_update,3)
+    def show_pairip_pass_menu(self):
+        """Show the Pair IP Pass page."""
+        # self.current_page = self.pairip_pass
+        self.handleMenuClick(self.menu_button_pairip_pass, 4)
+
+    def show_offset_leech_menu(self):
+        """Show the Offset Leech page."""
+        # self.current_page = self.offset_leech
+        self.handleMenuClick(self.menu_button_offset_leech, 5)
+    def show_multi_tool_menu(self):
+        """Show the Multi-Tool page."""
+        # self.current_page = self.multi_tool
+        self.handleMenuClick(self.menu_button_multi_tool, 6)
+
     def dragEnterEvent(self, event):
         if event.mimeData().hasUrls():
             event.accept()

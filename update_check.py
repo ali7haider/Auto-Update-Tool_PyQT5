@@ -1,51 +1,26 @@
-import subprocess
-from PyQt5.QtCore import Qt
-import json
-import zipfile
-import shutil
-from datetime import datetime
-from xml.etree import ElementTree as ET
-from PyQt5.QtWidgets import (
-    QWidget,
-    QFileDialog,
-    QMessageBox,
-    QTableWidgetItem,
-    QHeaderView
-
-)
-from PyQt5.QtCore import (
-    Qt,
-    QTimer,
-    QSettings,
-    QDateTime
-)
-from PyQt5.QtGui import QFont, QDesktopServices,QColor
-
-from PyQt5.QtWidgets import  QWidget, QTableWidgetItem, QFileDialog, QMessageBox
-from PyQt5.QtWidgets import *
-from PyQt5.QtWidgets import QHeaderView
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import Qt, QTimer, QSettings
-from PyQt5.QtGui import QColor
-import subprocess
-import csv
 import os
-import sys
 import re
-from PyQt5.QtGui import QColor
-from PyQt5.QtGui import  QColor
-from PyQt5.QtCore import Qt, QThread, pyqtSignal, QUrl
-from PyQt5.QtWidgets import QWidget
 import json
-import os
+import random
 import asyncio
 import aiohttp
-from bs4 import BeautifulSoup
 import requests
-import threading
-import concurrent.futures
 import traceback
-import random
+from bs4 import BeautifulSoup
+
+# PyQt5 Imports
+from PyQt5.QtCore import (
+    QThread,
+    pyqtSignal,
+    QUrl
+)
+from PyQt5.QtGui import (
+    QDesktopServices
+)
+from PyQt5.QtWidgets import (
+    QWidget
+)
+
 class GameUpdateChecker(QWidget):
     def __init__(self, ui_instance):
         super().__init__()  # Initialize QWidget

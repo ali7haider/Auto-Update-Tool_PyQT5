@@ -708,7 +708,7 @@ Button */
                <x>70</x>
                <y>8</y>
                <width>160</width>
-               <height>20</height>
+               <height>30</height>
               </rect>
              </property>
              <property name="font">
@@ -922,7 +922,7 @@ Button */
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btn_new">
+                 <widget class="QPushButton" name="menu_button_pairip_pass">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -996,7 +996,7 @@ Button */
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btn_save_2">
+                 <widget class="QPushButton" name="menu_button_offset_leech">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1033,7 +1033,7 @@ Button */
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="btn_save_3">
+                 <widget class="QPushButton" name="menu_button_multi_tool">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1111,9 +1111,9 @@ Button */
                <zorder>menu_button_menu_compiler</zorder>
                <zorder>menu_button_game_update</zorder>
                <zorder>btn_exit</zorder>
-               <zorder>btn_save_2</zorder>
-               <zorder>btn_save_3</zorder>
-               <zorder>btn_new</zorder>
+               <zorder>menu_button_offset_leech</zorder>
+               <zorder>menu_button_multi_tool</zorder>
+               <zorder>menu_button_pairip_pass</zorder>
               </widget>
              </item>
              <item alignment="Qt::AlignBottom">
@@ -1173,7 +1173,7 @@ Button */
                    <string notr="true">background-image: url(:/icons/images/icons/icon_settings.png);</string>
                   </property>
                   <property name="text">
-                   <string>Left Box</string>
+                   <string>Settings</string>
                   </property>
                  </widget>
                 </item>
@@ -1301,6 +1301,9 @@ Button */
                    <width>150</width>
                    <height>0</height>
                   </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::NoFrame</enum>
                  </property>
                  <property name="text">
                   <string>Left Box</string>
@@ -1961,7 +1964,7 @@ p, li { white-space: pre-wrap; }
                       <string notr="true">background: transparent;</string>
                      </property>
                      <property name="currentIndex">
-                      <number>3</number>
+                      <number>6</number>
                      </property>
                      <widget class="QWidget" name="home">
                       <property name="acceptDrops">
@@ -4448,6 +4451,48 @@ p, li { white-space: pre-wrap; }
                            </widget>
                           </item>
                          </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                     <widget class="QWidget" name="PairipPassPage">
+                      <layout class="QVBoxLayout" name="verticalLayout_32">
+                       <item>
+                        <widget class="QLabel" name="label">
+                         <property name="text">
+                          <string>Pairip Page Yet to be Implemented</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignCenter</set>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                     <widget class="QWidget" name="OffsetLeechPage">
+                      <layout class="QVBoxLayout" name="verticalLayout_33">
+                       <item>
+                        <widget class="QLabel" name="label_2">
+                         <property name="text">
+                          <string>Offset Leech Page Yet to be Implemented</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignCenter</set>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                     <widget class="QWidget" name="MultiToolPage">
+                      <layout class="QVBoxLayout" name="verticalLayout_34">
+                       <item>
+                        <widget class="QLabel" name="label_3">
+                         <property name="text">
+                          <string>Multi Tool Page Yet to be Implemented</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignCenter</set>
+                         </property>
                         </widget>
                        </item>
                       </layout>
