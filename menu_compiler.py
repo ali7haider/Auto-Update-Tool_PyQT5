@@ -1,43 +1,18 @@
-import subprocess
-from PyQt5.QtCore import Qt
-import json
+import os
 import zipfile
 import shutil
-from datetime import datetime
-from xml.etree import ElementTree as ET
+import subprocess
+# PyQt5 Imports
+from PyQt5.QtCore import QTimer, QDateTime
 from PyQt5.QtWidgets import (
     QWidget,
     QFileDialog,
     QMessageBox,
-    QTableWidgetItem,
-    QHeaderView
+)
 
-)
-from PyQt5.QtCore import (
-    Qt,
-    QTimer,
-    QSettings,
-    QDateTime
-)
-from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import  QWidget, QTableWidgetItem, QFileDialog, QMessageBox
-from PyQt5.QtWidgets import *
-from PyQt5.QtWidgets import QHeaderView
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import Qt, QTimer, QSettings
-from PyQt5.QtGui import QColor
-import subprocess
-import csv
-import os
-import sys
-import re
-from PyQt5.QtGui import QColor
-from PyQt5.QtGui import  QColor
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget
-import json
-import os
+# Local Imports
 from config_system import ConfigSystem
+
 class MenuCompiler(QWidget):  # Inherit from QWidget
     service_def = ''  # sınıf değişkeni
     def __init__(self, ui_instance):
