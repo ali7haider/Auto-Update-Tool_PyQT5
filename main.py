@@ -504,7 +504,7 @@ class ConfigSystem:
 
     def show_completion_message(self):
         try:
-            QMessageBox.information(self, "Done", "All APKs Completed!")
+            QMessageBox.information(self.ui, "Done", "All APKs Completed!")
         except Exception as e:
             print(f"Error showing completion message: {e}")
 
@@ -538,26 +538,123 @@ class ConfigSystem:
         except Exception as e:
             print(f"Error handling key pressed: {e}")
 
-    def add_to_table(self):
+    def write_output(self, text, color=''):
+        self.log_text.setTextColor(QColor(color))
+        self.log_text.append(text)
+
+
+    def maincppopen_file_dialog(self):
+        pass
+
+
+    def offsetopen_file_dialog(self):
+        pass
+
+           
+    def handle_apk_drop(self, apk_path):
         try:
-            classname_text = self.classname_textbox.text()
-            method_text = self.method_textbox.text()
+            package_name = self.get_package_name_from_apk(apk_path)
+            cpp_file_path = self.find_matching_cpp_file(package_name)
 
-            if not any([classname_text, method_text]):
-                QMessageBox.warning(self.ui, "Warning", "Please fill at least one row.")
+            if cpp_file_path:
+                self.maincpp_textbox.setText(cpp_file_path)
             else:
-                row_count = self.table_widget.rowCount()
-                self.table_widget.insertRow(row_count)
-
-                classname_item = QTableWidgetItem(classname_text)
-                method_item = QTableWidgetItem(method_text)
-
-                self.table_widget.setItem(row_count, 1, classname_item)
-                self.table_widget.setItem(row_count, 2, method_item)
+                QMessageBox.warning(self, "Uyarı", "Main.cpp dosyası bulunamadı")
+            
+            csv_file_path = self.find_matching_csv_file(package_name)
+            if csv_file_path:
+                self.load_config(csv_file_path)
+            else:
+                QMessageBox.warning(self, "Uyarı", "CSV dosyası yok")
         except Exception as e:
-            print(f"Error adding to table: {e}")
+            QMessageBox.warning(self, "Uyarı", f"Paket adı alınamadı: {e}")
+        
+    def get_package_name_from_apk(self, apk_path):
+        try:
+            aapt2_path = os.path.join(os.path.expanduser("~"), "Desktop", "autoupdatetool", "aapt2.exe")
+            result = subprocess.run([aapt2_path, "dump", "badging", apk_path], capture_output=True, text=True, encoding='utf-8')
 
+            if result.returncode == 0:
+                output = result.stdout
+                if output is None or output.strip() == "":
+                    raise Exception("aapt2 çıktısı boş veya None döndü")
+                package_name_match = re.search(r"package: name='([^']+)'", output)
+                if package_name_match:
+                    package_name = package_name_match.group(1)
+                    return package_name
+                else:
+                    raise Exception("APK içinde paket adı bulunamadı.")
+            else:
+                raise Exception(f"aapt2 komutu başarısız oldu. Çıkış kodu: {result.returncode}, Hata: {result.stderr}")
+        except Exception as e:
+            raise Exception(f"APK'den paket adı alınamadı: {e}")
+    def find_matching_cpp_file(self, package_name):
+        desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
+        autoupdatetool_path = os.path.join(desktop_path, "autoupdatetool")
+        maincpp_data_path = os.path.join(autoupdatetool_path, "Main.cpp Data")
 
+        # 'Main.cpp Data' dizinindeki .cpp dosyalarını tarayarak package ismiyle eşleşeni bul
+        matching_cpp_file = None
+        for root, dirs, files in os.walk(maincpp_data_path):
+            for file in files:
+                if file.endswith(".cpp") and package_name in file:
+                    matching_cpp_file = os.path.join(root, file)
+                    break
+            if matching_cpp_file:
+                break
+
+        return matching_cpp_file
+
+    def find_matching_csv_file(self, package_name):
+        desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
+        autoupdatetool_path = os.path.join(desktop_path, "autoupdatetool")
+        grabber_taslak_path = os.path.join(autoupdatetool_path, "Grabber Taslak")
+
+        # 'Grabber Taslak' dizinindeki .csv dosyalarını tarayarak package ismiyle eşleşeni bul
+        matching_csv_file = None
+        for root, dirs, files in os.walk(grabber_taslak_path):
+            for file in files:
+                if file.endswith(".csv") and package_name in file:
+                    matching_csv_file = os.path.join(root, file)
+                    break
+            if matching_csv_file:
+                break
+
+        return matching_csv_file
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.accept()
+        else:
+            event.ignore()
+
+    def dropEvent(self, event):
+        cs_file_path = None 
+        for url in event.mimeData().urls():
+            filename = url.toLocalFile()
+            if os.path.isfile(filename):
+                if filename.endswith('.csv'):
+                    self.load_config(filename)
+                elif filename.endswith('.cs'):
+                    cs_file_path = filename 
+                elif filename.endswith('.xml'):
+                    self.offseth_textbox.setText(filename)
+                elif filename.endswith('.cpp'):
+                    self.maincpp_textbox.setText(filename)
+                elif filename.endswith('.apk'):
+                    self.handle_apk_drop(filename)
+            elif os.path.isdir(filename):
+                for root, dirs, files in os.walk(filename):
+                    for file in files:
+                        if file.endswith('.cs'):
+                            cs_file_path = os.path.join(root, file)
+                            break
+                    if cs_file_path:
+                        break
+                else:
+                    continue
+
+        if cs_file_path:
+            self.dump_path_textbox.setText(cs_file_path)
 
 
 
