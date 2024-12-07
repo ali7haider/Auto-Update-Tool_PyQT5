@@ -1,53 +1,26 @@
-import subprocess
-from PyQt5.QtCore import Qt
+import os
+import sys
+import re
+import csv
 import json
-from datetime import datetime
-from xml.etree import ElementTree as ET
+import subprocess
+import zipfile
+# PyQt5 Imports
+from PyQt5.QtCore import (
+    Qt,
+    QTimer,
+    QSettings,
+    QThread,
+    pyqtSignal
+)
+from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import (
     QWidget,
     QFileDialog,
     QMessageBox,
     QTableWidgetItem,
     QHeaderView
-
 )
-from PyQt5.QtCore import (
-    Qt,
-    QTimer,
-    QSettings
-)
-from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import  QWidget, QTableWidgetItem, QFileDialog, QMessageBox
-from PyQt5.QtWidgets import *
-from PyQt5.QtWidgets import QHeaderView
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import Qt, QTimer, QSettings
-from PyQt5.QtGui import QColor
-import subprocess
-import csv
-import os
-import sys
-import re
-from PyQt5.QtGui import QColor
-from PyQt5.QtGui import  QColor
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget
-import json
-import os
-import zipfile
-import subprocess
-from PyQt5.QtCore import QThread, pyqtSignal
-
-from PyQt5.QtCore import (
-    QThread,
-    pyqtSignal,
-)
-
-import subprocess
-import os
-import re
-from PyQt5.QtCore import  QThread, pyqtSignal
-import os
 
 
 class ConfigSystem(QWidget):  # Inherit from QWidget
