@@ -42,9 +42,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Access the QStackedWidget
         self.stacked_widget = self.findChild(QStackedWidget, "stackedWidget")  # Match the object name in Qt Designer
-        self.config_system=None
-        self.menu_compiler=None
         # Initialize individual pages
+        self.config_system = ConfigSystem(self)  # Shared instance
         self.init_pages()
 
         self.menu_buttons = [
@@ -68,8 +67,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def init_pages(self):
         """Initialize backend logic for each page."""
         # Initialize ConfigSystem logic
-        self.config_system = ConfigSystem(self)  # Assuming it's the first page
-        self.menu_compiler = MenuCompiler(self)
+        self.current_page = self.config_system
+        self.menu_compiler = MenuCompiler(self,self.config_system)
         self.game_update_chceker= GameUpdateChecker(self)
         self.stackedWidget.setCurrentIndex(0)
 

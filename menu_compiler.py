@@ -15,10 +15,10 @@ from config_system import ConfigSystem
 
 class MenuCompiler(QWidget):  # Inherit from QWidget
     service_def = ''  # sınıf değişkeni
-    def __init__(self, ui_instance):
+    def __init__(self, ui_instance,config_system):
         super().__init__()  # Initialize QWidget
         self.ui = ui_instance
-        self.config_system = ConfigSystem(self.ui) ## With for Offset Grabber Compile Menu
+        self.config_system = config_system## With for Offset Grabber Compile Menu
         self.apk_queue = [] 
         self.is_processing = False
         self.mainlaunch_add_button.clicked.connect(self.run_openmainactivity)
